@@ -1,0 +1,54 @@
+﻿# Large data files
+*.tsv
+*.csv
+*.h5
+*.hdf5
+*.parquet
+*.feather
+*.svs
+*.tif
+*.tiff
+*.png
+*.jpg
+*.jpeg
+
+# Except small config/manifest files
+!*_config*.csv
+!*_manifest*.tsv
+
+# Python
+__pycache__/
+*.py[cod]
+*.class
+.ipynb_checkpoints/
+*.egg-info/
+.pytest_cache/
+
+# R
+.Rhistory
+.RData
+.Rproj.user
+
+# Conda
+*.conda
+*.tar.bz2
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Data directories content (but keep .gitkeep)
+data/raw/*
+!data/raw/.gitkeep
+data/processed/*
+!data/processed/.gitkeep
+
+# Large outputs
+outputs/
+results/*/brca_*/
