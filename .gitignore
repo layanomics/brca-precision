@@ -16,6 +16,12 @@
 !*_config*.csv
 !*_manifest*.tsv
 
+# BUT allow results in analyses folders
+!analyses/*/results/**/*.csv
+!analyses/*/results/**/*.tsv
+!analyses/*/results/**/*.png
+!analyses/*/results/**/*.jpg
+
 # Python
 __pycache__/
 *.py[cod]
@@ -49,6 +55,5 @@ data/raw/*
 data/processed/*
 !data/processed/.gitkeep
 
-# Large outputs
+# Large outputs (top-level only)
 outputs/
-results/*/brca_*/
