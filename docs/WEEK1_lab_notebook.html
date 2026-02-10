@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.26">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>week1_lab_notebook</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="WEEK1_lab_notebook_files/libs/clipboard/clipboard.min.js"></script>
+<script src="WEEK1_lab_notebook_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="WEEK1_lab_notebook_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="WEEK1_lab_notebook_files/libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="WEEK1_lab_notebook_files/libs/quarto-html/popper.min.js"></script>
+<script src="WEEK1_lab_notebook_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="WEEK1_lab_notebook_files/libs/quarto-html/anchor.min.js"></script>
+<link href="WEEK1_lab_notebook_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="WEEK1_lab_notebook_files/libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="WEEK1_lab_notebook_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="WEEK1_lab_notebook_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="WEEK1_lab_notebook_files/libs/bootstrap/bootstrap-9e3ffae467580fdb927a41352e75a2e0.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="fullcontent quarto-light">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+
+
+
+<section id="brca-phase-1-week-1-lab-notebook" class="level1">
+<h1>BRCA Phase-1 — Week 1 Lab Notebook</h1>
+<blockquote class="blockquote">
+<p>This document records the exact steps, decisions, issues, and corrections made during BRCA Phase-1 cohort construction.</p>
+</blockquote>
+<hr>
+<section id="project-overview" class="level2">
+<h2 class="anchored" data-anchor-id="project-overview">Project Overview</h2>
+<ul>
+<li><strong>Project:</strong> Image-based molecular subtype prediction<br>
+</li>
+<li><strong>Cancer:</strong> TCGA-BRCA<br>
+</li>
+<li><strong>Phase:</strong> Phase-1 (data foundation)<br>
+</li>
+<li><strong>Goal:</strong> Build a clean, reproducible paired cohort (RNA-seq + WSI) suitable for downstream ML and PAM50 subtyping</li>
+</ul>
+<hr>
+</section>
+<section id="week-1-objective" class="level2">
+<h2 class="anchored" data-anchor-id="week-1-objective">Week 1 Objective</h2>
+<p>Establish a <strong>production-quality data foundation</strong> by:</p>
+<ul>
+<li>Querying <strong>all available TCGA-BRCA RNA-seq and WSI data</strong></li>
+<li>Enforcing <strong>RNA ∩ WSI pairing at the case level</strong></li>
+<li>Resolving <strong>real-world TCGA issues</strong> (duplicates, multiple files per case)</li>
+<li>Producing <strong>explicit, versioned artifacts</strong> that can be audited and reused</li>
+</ul>
+<blockquote class="blockquote">
+<p>This week intentionally focused on <strong>data correctness and reproducibility</strong>, not modeling.</p>
+</blockquote>
+<hr>
+</section>
+<section id="environment-repository-setup" class="level2">
+<h2 class="anchored" data-anchor-id="environment-repository-setup">Environment &amp; Repository Setup</h2>
+<ul>
+<li><strong>OS:</strong> Windows<br>
+</li>
+<li><strong>IDE:</strong> VS Code<br>
+</li>
+<li><strong>Python environment:</strong> conda env <code>gdc</code><br>
+</li>
+<li><strong>Data source:</strong> GDC / TCGA<br>
+</li>
+<li><strong>Repository:</strong> <code>histo-to-omics-framework</code></li>
+</ul>
+<section id="key-directory-structure" class="level3">
+<h3 class="anchored" data-anchor-id="key-directory-structure">Key directory structure</h3>
+<ul>
+<li><code>scripts/gdc/</code> — GDC access (shared, cancer-agnostic)</li>
+<li><code>scripts/shared/</code> — generic data plumbing (pairing, QC, manifests)</li>
+<li><code>scripts/brca_phase1/</code> — BRCA-specific biology and labels</li>
+<li><code>data/metadata/brca_phase1/</code> — manifests and metadata</li>
+<li><code>data/processed/brca_subtyping/</code> — paired cohort artifacts</li>
+<li><code>outputs/brca_subtyping/</code> — logs, QC outputs, tables</li>
+<li><code>reports/brca_phase1/</code> — human-readable documentation</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="step-by-step-work-log" class="level2">
+<h2 class="anchored" data-anchor-id="step-by-step-work-log">Step-by-Step Work Log</h2>
+<section id="step-0-design-decision-shared-vs-cancer-specific-code" class="level3">
+<h3 class="anchored" data-anchor-id="step-0-design-decision-shared-vs-cancer-specific-code">Step 0 — Design decision: shared vs cancer-specific code</h3>
+<section id="step-0-decision" class="level4">
+<h4 class="anchored" data-anchor-id="step-0-decision">Step 0 — Decision</h4>
+<ul>
+<li>Separate <strong>data access</strong>, <strong>generic processing</strong>, and <strong>cancer-specific biology</strong></li>
+</ul>
+</section>
+<section id="step-0-outcome" class="level4">
+<h4 class="anchored" data-anchor-id="step-0-outcome">Step 0 — Outcome</h4>
+<ul>
+<li>Shared GDC scripts → <code>scripts/gdc/</code></li>
+<li>Shared pairing / QC scripts → <code>scripts/shared/</code></li>
+<li>BRCA-specific logic → <code>scripts/brca_phase1/</code></li>
+</ul>
+</section>
+<section id="step-0-rationale" class="level4">
+<h4 class="anchored" data-anchor-id="step-0-rationale">Step 0 — Rationale</h4>
+<ul>
+<li>Avoids refactoring when adding additional cancers</li>
+<li>Matches industry-grade multi-cancer pipelines</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="step-1-query-full-tcga-brca-metadata-from-gdc" class="level3">
+<h3 class="anchored" data-anchor-id="step-1-query-full-tcga-brca-metadata-from-gdc">Step 1 — Query full TCGA-BRCA metadata from GDC</h3>
+<section id="step-1-script" class="level4">
+<h4 class="anchored" data-anchor-id="step-1-script">Step 1 — Script</h4>
+<ul>
+<li><code>scripts/gdc/gdc_build_manifests.py</code></li>
+</ul>
+</section>
+<section id="step-1-actions" class="level4">
+<h4 class="anchored" data-anchor-id="step-1-actions">Step 1 — Actions</h4>
+<ul>
+<li>Queried RNA-seq (STAR-Counts, Primary Tumor)</li>
+<li>Queried WSI (SVS slide images)</li>
+<li>No artificial limits (<code>--n all</code>)</li>
+</ul>
+</section>
+<section id="step-1-results" class="level4">
+<h4 class="anchored" data-anchor-id="step-1-results">Step 1 — Results</h4>
+<ul>
+<li>RNA-seq files returned: <strong>1111</strong></li>
+<li>WSI slide files returned: <strong>3112</strong></li>
+</ul>
+</section>
+<section id="step-1-artifacts" class="level4">
+<h4 class="anchored" data-anchor-id="step-1-artifacts">Step 1 — Artifacts</h4>
+<ul>
+<li><code>brca_rnaseq_manifest.tsv</code></li>
+<li><code>brca_rnaseq_metadata.tsv</code></li>
+<li><code>brca_wsi_manifest.tsv</code></li>
+<li><code>brca_wsi_metadata.tsv</code></li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="step-2-build-paired-cohort-rna-wsi" class="level3">
+<h3 class="anchored" data-anchor-id="step-2-build-paired-cohort-rna-wsi">Step 2 — Build paired cohort (RNA ∩ WSI)</h3>
+<section id="step-2-script" class="level4">
+<h4 class="anchored" data-anchor-id="step-2-script">Step 2 — Script</h4>
+<ul>
+<li><code>scripts/shared/make_paired_cohort.py</code></li>
+</ul>
+</section>
+<section id="step-2-logic" class="level4">
+<h4 class="anchored" data-anchor-id="step-2-logic">Step 2 — Logic</h4>
+<ul>
+<li>Group by <code>case_id</code></li>
+<li>Track RNA presence and WSI presence per case</li>
+<li>Record number of WSI slides per case</li>
+</ul>
+</section>
+<section id="step-2-results" class="level4">
+<h4 class="anchored" data-anchor-id="step-2-results">Step 2 — Results</h4>
+<ul>
+<li>Cases with RNA: <strong>1095</strong></li>
+<li>Cases with WSI: <strong>1098</strong></li>
+<li><strong>Paired cases (RNA ∩ WSI): 1095</strong></li>
+<li>WSI-only cases: <strong>3</strong></li>
+<li>WSI slides per case: <strong>1–9</strong></li>
+</ul>
+</section>
+<section id="step-2-artifact" class="level4">
+<h4 class="anchored" data-anchor-id="step-2-artifact">Step 2 — Artifact</h4>
+<ul>
+<li><code>data/processed/brca_subtyping/brca_paired_cohort.csv</code></li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="step-3-qc-of-paired-cohort" class="level3">
+<h3 class="anchored" data-anchor-id="step-3-qc-of-paired-cohort">Step 3 — QC of paired cohort</h3>
+<section id="step-3-script" class="level4">
+<h4 class="anchored" data-anchor-id="step-3-script">Step 3 — Script</h4>
+<ul>
+<li><code>scripts/shared/qc_paired_cohort.py</code></li>
+</ul>
+</section>
+<section id="step-3-purpose" class="level4">
+<h4 class="anchored" data-anchor-id="step-3-purpose">Step 3 — Purpose</h4>
+<ul>
+<li>Validate cohort composition</li>
+<li>Persist QC output to logs</li>
+</ul>
+</section>
+<section id="step-3-results" class="level4">
+<h4 class="anchored" data-anchor-id="step-3-results">Step 3 — Results</h4>
+<ul>
+<li>Total cases in table: <strong>1098</strong></li>
+<li>Paired cases: <strong>1095</strong></li>
+<li>WSI slide count range confirmed: <strong>1–9</strong></li>
+</ul>
+</section>
+<section id="step-3-artifact" class="level4">
+<h4 class="anchored" data-anchor-id="step-3-artifact">Step 3 — Artifact</h4>
+<ul>
+<li><code>outputs/brca_subtyping/logs/paired_cohort_qc.txt</code></li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="step-4-restrict-rna-manifest-to-paired-cases" class="level3">
+<h3 class="anchored" data-anchor-id="step-4-restrict-rna-manifest-to-paired-cases">Step 4 — Restrict RNA manifest to paired cases</h3>
+<section id="step-4-observation" class="level4">
+<h4 class="anchored" data-anchor-id="step-4-observation">Step 4 — Observation</h4>
+<ul>
+<li>RNA metadata contained <strong>1111 RNA files</strong></li>
+<li>Paired cases were only <strong>1095</strong></li>
+</ul>
+</section>
+<section id="step-4-script-added" class="level4">
+<h4 class="anchored" data-anchor-id="step-4-script-added">Step 4 — Script Added</h4>
+<ul>
+<li><code>scripts/shared/build_manifest_from_paired_cases.py</code></li>
+</ul>
+</section>
+<section id="step-4-outcome" class="level4">
+<h4 class="anchored" data-anchor-id="step-4-outcome">Step 4 — Outcome</h4>
+<ul>
+<li>RNA manifest restricted to paired cases</li>
+<li>Still <strong>1111 RNA rows</strong>, indicating duplicate RNA files per case</li>
+</ul>
+</section>
+<section id="step-4-artifact" class="level4">
+<h4 class="anchored" data-anchor-id="step-4-artifact">Step 4 — Artifact</h4>
+<ul>
+<li><code>brca_rnaseq_manifest_paired.tsv</code></li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="step-5-critical-issue-discovered-multiple-rna-seq-files-per-case" class="level3">
+<h3 class="anchored" data-anchor-id="step-5-critical-issue-discovered-multiple-rna-seq-files-per-case">Step 5 — Critical issue discovered: multiple RNA-seq files per case</h3>
+<section id="step-5-observation" class="level4">
+<h4 class="anchored" data-anchor-id="step-5-observation">Step 5 — Observation</h4>
+<ul>
+<li>Paired cases: <strong>1095</strong></li>
+<li>RNA files: <strong>1111</strong></li>
+<li><strong>11 cases had more than one RNA-seq file</strong></li>
+</ul>
+<p>This is a known TCGA characteristic (multiple aliquots / reprocessing).</p>
+</section>
+<section id="step-5-decision" class="level4">
+<h4 class="anchored" data-anchor-id="step-5-decision">Step 5 — Decision</h4>
+<ul>
+<li>Enforce <strong>exactly one RNA-seq file per case</strong></li>
+<li>Use a <strong>deterministic and reproducible rule</strong><br>
+(sorted file name → first file)</li>
+</ul>
+</section>
+<section id="step-5-script-added" class="level4">
+<h4 class="anchored" data-anchor-id="step-5-script-added">Step 5 — Script Added</h4>
+<ul>
+<li><code>scripts/shared/build_one_rnaseq_per_case_manifest.py</code></li>
+</ul>
+</section>
+<section id="step-5-results" class="level4">
+<h4 class="anchored" data-anchor-id="step-5-results">Step 5 — Results</h4>
+<ul>
+<li>Final RNA manifest: <strong>1095 rows</strong></li>
+<li>One RNA-seq file per paired case</li>
+<li>Duplicate cases handled transparently</li>
+</ul>
+</section>
+<section id="step-5-artifacts" class="level4">
+<h4 class="anchored" data-anchor-id="step-5-artifacts">Step 5 — Artifacts</h4>
+<ul>
+<li><code>brca_rnaseq_manifest_one_per_case.tsv</code></li>
+<li><code>outputs/brca_subtyping/tables/rnaseq_one_per_case_selection.csv</code></li>
+</ul>
+<blockquote class="blockquote">
+<p>This decision is documented and reversible if needed.</p>
+</blockquote>
+<hr>
+</section>
+</section>
+</section>
+<section id="current-state-end-of-week-1" class="level2">
+<h2 class="anchored" data-anchor-id="current-state-end-of-week-1">Current State (End of Week 1)</h2>
+<section id="cohort-summary" class="level3">
+<h3 class="anchored" data-anchor-id="cohort-summary">Cohort summary</h3>
+<ul>
+<li><strong>Cancer:</strong> BRCA<br>
+</li>
+<li><strong>Paired cases (RNA + WSI):</strong> 1095<br>
+</li>
+<li><strong>RNA per case:</strong> exactly 1<br>
+</li>
+<li><strong>WSI per case:</strong> 1–9 slides</li>
+</ul>
+</section>
+<section id="ready-to-use-artifacts" class="level3">
+<h3 class="anchored" data-anchor-id="ready-to-use-artifacts">Ready-to-use artifacts</h3>
+<ul>
+<li>Clean paired cohort table</li>
+<li>Deterministic RNA download manifest</li>
+<li>QC logs</li>
+<li>Explicit record of duplicate resolution</li>
+</ul>
+<p>No modeling assumptions have been made yet.</p>
+<hr>
+</section>
+</section>
+<section id="key-lessons-decisions-logged" class="level2">
+<h2 class="anchored" data-anchor-id="key-lessons-decisions-logged">Key Lessons / Decisions Logged</h2>
+<ul>
+<li>TCGA <strong>cannot be assumed</strong> to have one RNA-seq file per case</li>
+<li>Pairing must be done at the <strong>case level</strong>, not file level</li>
+<li>Deterministic rules are essential for reproducibility</li>
+<li>All ad-hoc one-liners were converted into scripts</li>
+</ul>
+<hr>
+</section>
+<section id="next-steps-week-2" class="level2">
+<h2 class="anchored" data-anchor-id="next-steps-week-2">Next Steps (Week 2)</h2>
+<ul>
+<li>Download RNA-seq STAR-Counts for 1095 cases (scripted)</li>
+<li>Build expression matrix</li>
+<li>Apply normalization (documented)</li>
+<li>Run PAM50 subtyping</li>
+<li>Produce a non-technical summary for supervisor review</li>
+</ul>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
