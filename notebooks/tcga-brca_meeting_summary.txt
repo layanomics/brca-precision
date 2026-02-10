@@ -1,0 +1,9 @@
+Project: TCGA-BRCA
+Slide files (total): 3112
+RNA files (total): 1231
+Cases with slides: 1098
+Cases with RNA: 1095
+Paired cases: 1095
+Demo cohort size: 15
+Manifest CSV: outputs\feasibility\tcga-brca_paired_manifest_demo.csv
+Plot PNG: outputs\feasibility\tcga-brca_feasibility_summary.png
