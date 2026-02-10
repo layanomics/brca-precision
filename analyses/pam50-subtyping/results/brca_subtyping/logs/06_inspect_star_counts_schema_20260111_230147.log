@@ -1,0 +1,5 @@
+[OK] Wrote schema inspection: outputs\brca_subtyping\logs\star_counts_schema_inspection.txt
+[INFO] header_ok=5 header_fail=0 missing=0
+COMMAND:
+C:\Users\layan\miniconda3\envs\gdc\python.exe scripts/shared/inspect_star_counts_schema.py --config configs\brca_phase1.yaml
+

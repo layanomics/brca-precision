@@ -1,0 +1,11 @@
+COMMAND:
+C:\Users\layan\miniconda3\envs\gdc\python.exe scripts/gdc/gdc_download.py --manifest data\metadata\brca_phase1\brca_rnaseq_manifest_one_per_case.tsv --out_dir data\raw\gdc\brca_phase1\rnaseq_star_counts --log_dir outputs\brca_subtyping\logs\gdc_download --threads 8 --gdc_client gdc-client --verify_after --fail_on_verify
+
+Progress: 0/1095 (  0.0%) | elapsed 00:00:00 | resumed_from 0Progress: 0/1095 (  0.0%) | elapsed 00:00:10 | resumed_from 0Progress: 0/1095 (  0.0%) | elapsed 00:00:20 | resumed_from 0Progress: 0/1095 (  0.0%) | elapsed 00:00:30 | resumed_from 0Progress: 0/1095 (  0.0%) | elapsed 00:00:40 | resumed_from 0Progress: 0/1095 (  0.0%) | elapsed 00:00:50 | resumed_from 0Progress: 1/1095 (  0.1%) | elapsed 00:01:00 | resumed_from 0Progress: 1/1095 (  0.1%) | elapsed 00:01:10 | resumed_from 0Progress: 2/1095 (  0.2%) | elapsed 00:01:20 | resumed_from 0Progress: 2/1095 (  0.2%) | elapsed 00:01:30 | resumed_from 0Progress: 3/1095 (  0.3%) | elapsed 00:01:40 | resumed_from 0Progress: 3/1095 (  0.3%) | elapsed 00:01:50 | resumed_from 0Progress: 5/1095 (  0.5%) | elapsed 00:02:00 | resumed_from 0Progress: 5/1095 (  0.5%) | elapsed 00:02:10 | resumed_from 0Progress: 7/1095 (  0.6%) | elapsed 00:02:20 | resumed_from 0Progress: 8/1095 (  0.7%) | elapsed 00:02:30 | resumed_from 0Progress: 9/1095 (  0.8%) | elapsed 00:02:40 | resumed_from 0Progress: 10/1095 (  0.9%) | elapsed 00:02:50 | resumed_from 0Progress: 11/1095 (  1.0%) | elapsed 00:03:00 | resumed_from 0Progress: 11/1095 (  1.0%) | elapsed 00:03:10 | resumed_from 0Progress: 11/1095 (  1.0%) | elapsed 00:03:20 | resumed_from 0
+Traceback (most recent call last):
+  File "D:\Projects\histo-to-omics-framework\scripts\gdc\gdc_download.py", line 221, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "D:\Projects\histo-to-omics-framework\scripts\gdc\gdc_download.py", line 186, in main
+    time.sleep(max(1, args.progress_every))
+KeyboardInterrupt

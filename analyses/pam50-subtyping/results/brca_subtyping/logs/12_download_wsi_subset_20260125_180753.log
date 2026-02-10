@@ -1,0 +1,6 @@
+COMMAND:
+C:\Users\layan\miniconda3\envs\gdc\python.exe scripts/gdc/gdc_download.py --manifest data\metadata\brca_phase1\brca_wsi_manifest_subset.tsv --out_dir data\raw\gdc\brca_phase1\wsi_subset --log_dir outputs\brca_subtyping\logs\gdc_download --threads 8 --gdc_client gdc-client --verify_after --fail_on_verify
+
+GDC_DOWNLOAD_LOG_DIR: outputs\brca_subtyping\logs\gdc_download
+SELECTION_TABLE: outputs\brca_subtyping\tables\brca_wsi_subset_selection.csv
+SUBSET_MANIFEST: data\metadata\brca_phase1\brca_wsi_manifest_subset.tsv

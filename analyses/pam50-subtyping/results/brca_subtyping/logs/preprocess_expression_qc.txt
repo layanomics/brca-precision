@@ -1,0 +1,28 @@
+QC: Step 08 preprocess expression
+
+INPUT_COUNTS: data/processed/brca_subtyping/brca_expr_counts.csv
+INPUT_SAMPLES: data/processed/brca_subtyping/brca_expr_samples.csv
+PREPROCESSED_COUNTS: data/processed/brca_subtyping/brca_expr_counts_preprocessed.csv
+LOG2CPM_COUNTS: data/processed/brca_subtyping/brca_expr_counts_log2cpm.csv
+
+RAW_SHAPE: genes=60660 samples=1095
+PRE_SHAPE: genes=55097 samples=1095
+GENES_REMOVED: 5563
+
+RAW_NA_COUNT: 0
+PRE_NA_COUNT: 0
+
+RAW_LIBRARY_SIZE (sum counts per sample):
+min=1.93e+07 | p25=4.77e+07 | median=5.78e+07 | p75=6.85e+07 | max=1.14e+08
+RAW_ZERO_FRACTION (fraction genes with 0 per sample):
+min=0.168 | p25=0.443 | median=0.463 | p75=0.486 | max=0.599
+
+PRE_LIBRARY_SIZE (sum counts per sample):
+min=1.93e+07 | p25=4.77e+07 | median=5.78e+07 | p75=6.85e+07 | max=1.14e+08
+PRE_ZERO_FRACTION (fraction genes with 0 per sample):
+min=0.105 | p25=0.387 | median=0.409 | p75=0.434 | max=0.559
+
+LOG2CPM_SHAPE: genes=55097 samples=1095
+LOG2CPM_ALL_FINITE: True
+LOG2CPM_VALUE_RANGE (global):
+min=0 max=17.4

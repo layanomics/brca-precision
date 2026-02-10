@@ -1,0 +1,6 @@
+COMMAND:
+C:\Users\layan\miniconda3\envs\gdc\python.exe scripts/gdc/gdc_download.py --manifest data\metadata\brca_phase1\brca_rnaseq_manifest_one_per_case.tsv --out_dir data\raw\gdc\brca_phase1\rnaseq_star_counts --log_dir outputs\brca_subtyping\logs\gdc_download --threads 8 --gdc_client gdc-client --verify_after --fail_on_verify
+
+[RUN] gdc-client download -m data\metadata\brca_phase1\brca_rnaseq_manifest_one_per_case.tsv -d data\raw\gdc\brca_phase1\rnaseq_star_counts -t 8
+[LOG] outputs\brca_subtyping\logs\gdc_download\gdc_download_20260109_015607.log
+[ERROR] gdc-client exited with code 2. See log: outputs\brca_subtyping\logs\gdc_download\gdc_download_20260109_015607.log

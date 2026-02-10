@@ -1,0 +1,6 @@
+COMMAND:
+C:\Users\layan\miniconda3\envs\gdc\python.exe scripts/shared/build_manifest_from_paired_cases.py --paired_csv data\processed\brca_subtyping\brca_paired_cohort.csv --rnaseq_meta_tsv data\metadata\brca_phase1\brca_rnaseq_metadata.tsv --out_manifest_tsv data\metadata\brca_phase1\brca_rnaseq_manifest_paired.tsv --require_paired
+
+[OK] wrote manifest -> data\metadata\brca_phase1\brca_rnaseq_manifest_paired.tsv
+[INFO] paired cases used = 1095
+[INFO] RNA rows in manifest = 1111

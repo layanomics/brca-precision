@@ -1,0 +1,9 @@
+FILE: data/processed/brca_subtyping/brca_paired_cohort.csv
+SHAPE: (1098, 9)
+
+VALUE_COUNTS has_rnaseq x has_wsi:
+has_rnaseq  has_wsi
+True        True       1095
+False       True          3
+
+WSI_SLIDE_COUNT min=1 max=9

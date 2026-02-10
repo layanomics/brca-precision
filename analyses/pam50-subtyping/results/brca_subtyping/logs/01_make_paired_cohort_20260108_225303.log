@@ -1,0 +1,16 @@
+COMMAND:
+C:\Users\layan\miniconda3\envs\gdc\python.exe scripts/shared/make_paired_cohort.py --rna_meta data\metadata\brca_phase1\brca_rnaseq_metadata.tsv --wsi_meta data\metadata\brca_phase1\brca_wsi_metadata.tsv --out data\processed\brca_subtyping\brca_paired_cohort.csv
+
+[OK] Wrote paired cohort table: data\processed\brca_subtyping\brca_paired_cohort.csv
+[INFO] Cases with RNA: 1095
+[INFO] Cases with WSI: 1098
+Traceback (most recent call last):
+  File "D:\Projects\histo-to-omics-framework\scripts\shared\make_paired_cohort.py", line 178, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "D:\Projects\histo-to-omics-framework\scripts\shared\make_paired_cohort.py", line 170, in main
+    print(f"[INFO] Paired cases (RNA \u2229 WSI): {paired_count}")
+  File "C:\Users\layan\miniconda3\envs\gdc\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\u2229' in position 25: character maps to <undefined>

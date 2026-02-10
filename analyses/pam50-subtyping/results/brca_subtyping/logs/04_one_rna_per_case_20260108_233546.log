@@ -1,0 +1,8 @@
+COMMAND:
+C:\Users\layan\miniconda3\envs\gdc\python.exe scripts/shared/build_one_rnaseq_per_case_manifest.py --paired_csv data\processed\brca_subtyping\brca_paired_cohort.csv --rnaseq_meta_tsv data\metadata\brca_phase1\brca_rnaseq_metadata.tsv --out_manifest_tsv data\metadata\brca_phase1\brca_rnaseq_manifest_one_per_case.tsv --out_selection_csv outputs\brca_subtyping\tables\rnaseq_one_per_case_selection.csv
+
+[OK] wrote one-per-case manifest -> data\metadata\brca_phase1\brca_rnaseq_manifest_one_per_case.tsv rows=1095
+[OK] wrote selection table      -> outputs\brca_subtyping\tables\rnaseq_one_per_case_selection.csv
+[INFO] paired cases             = 1095
+[INFO] RNA rows candidate set   = 1111
+[INFO] cases with >1 RNA file   = 11

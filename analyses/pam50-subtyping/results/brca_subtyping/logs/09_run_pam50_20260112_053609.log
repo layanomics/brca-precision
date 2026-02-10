@@ -1,0 +1,12 @@
+[INFO] Reading matrix: data\processed\brca_subtyping\brca_expr_counts_log2cpm.csv 
+[INFO] Matrix dims: genes=55097 samples=1095 
+[INFO] Detected Ensembl gene IDs. Mapping ENSEMBL -> SYMBOL using org.Hs.eg.db 
+'select()' returned 1:many mapping between keys and columns
+[INFO] Aggregating duplicates after mapping (sum by SYMBOL) 
+[INFO] After mapping: genes=24883 samples=1095 
+[INFO] Transposed dims: samples=1095 genes=24883 
+[INFO] Running genefu::molecular.subtyping (pam50) 
+[OK] Wrote PAM50 raw calls: outputs\brca_subtyping\tables\brca_pam50_raw_calls.csv (rows=1095 cols=2) 
+COMMAND:
+Rscript scripts\brca_phase1\run_pam50_genefu.R --counts_preprocessed_csv data\processed\brca_subtyping\brca_expr_counts_log2cpm.csv --samples_csv data\processed\brca_subtyping\brca_expr_samples.csv --out_raw_calls_csv outputs\brca_subtyping\tables\brca_pam50_raw_calls.csv
+

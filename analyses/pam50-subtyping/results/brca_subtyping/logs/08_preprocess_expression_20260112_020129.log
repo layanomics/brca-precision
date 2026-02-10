@@ -1,0 +1,15 @@
+[INFO] Loading counts: data\processed\brca_subtyping\brca_expr_counts.csv
+[INFO] Loaded matrix: genes=60660 samples=1095
+[INFO] Filtering genes: min_total_count=10, min_samples_nonzero=10
+[INFO] Genes kept: 55097/60660 (removed 5563)
+[OK] Wrote preprocessed counts (filtered): data\processed\brca_subtyping\brca_expr_counts_preprocessed.csv
+[INFO] Computing log2(CPM + 1.0)
+D:\Projects\histo-to-omics-framework\scripts\shared\preprocess_expression.py:110: FutureWarning: DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+  log2cpm = (cpm + args.pseudocount).applymap(lambda x: 0.0 if x <= 0 else x)
+D:\Projects\histo-to-omics-framework\scripts\shared\preprocess_expression.py:111: FutureWarning: DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+  log2cpm = log2cpm.applymap(lambda x: __import__("math").log2(x))
+[OK] Wrote log2cpm: data\processed\brca_subtyping\brca_expr_counts_log2cpm.csv
+[DONE] preprocess_expression finished in 73.31 sec
+COMMAND:
+C:\Users\layan\miniconda3\envs\gdc\python.exe scripts/shared/preprocess_expression.py --counts_csv data/processed/brca_subtyping/brca_expr_counts.csv --samples_csv data/processed/brca_subtyping/brca_expr_samples.csv --out_counts_preprocessed_csv data/processed/brca_subtyping/brca_expr_counts_preprocessed.csv --gene_id_col gene_id --min_total_count 10 --min_samples_nonzero 10 --make_log2cpm --out_counts_log2cpm_csv data/processed/brca_subtyping/brca_expr_counts_log2cpm.csv --pseudocount 1.0
+

@@ -1,0 +1,16 @@
+SLIDE_FILE: outputs/brca_subtyping/tables/brca_wsi_pam50_slide_labels.csv
+CASE_FILE : outputs/brca_subtyping/tables/brca_wsi_pam50_case_labels.csv
+
+SLIDE_ROWS: 3105
+CASE_ROWS : 1095
+UNIQUE_CASES_IN_SLIDE: 1095
+UNIQUE_WSI_FILE_ID  : 3105
+MISSING_PAM50_ON_SLIDES: 0
+PAM50_COUNTS_ON_SLIDES:
+  LumA: 1137
+  LumB: 1082
+  Basal: 550
+  Her2: 292
+  Normal: 44
+
+INVALID_SUBTYPES_IN_CASE_TABLE: ['Normal']

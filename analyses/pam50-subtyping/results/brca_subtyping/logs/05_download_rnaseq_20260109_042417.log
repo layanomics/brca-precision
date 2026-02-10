@@ -1,0 +1,22 @@
+COMMAND:
+C:\Users\layan\miniconda3\envs\gdc\python.exe scripts/gdc/gdc_download.py --manifest data\metadata\brca_phase1\brca_rnaseq_manifest_one_per_case.tsv --out_dir data\raw\gdc\brca_phase1\rnaseq_star_counts --log_dir outputs\brca_subtyping\logs\gdc_download --threads 8 --gdc_client gdc-client --verify_after --fail_on_verify
+
+Traceback (most recent call last):
+  File "D:\Projects\histo-to-omics-framework\scripts\gdc\gdc_download.py", line 135, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "D:\Projects\histo-to-omics-framework\scripts\gdc\gdc_download.py", line 109, in main
+    p = subprocess.run(cmd, stdout=lf, stderr=subprocess.STDOUT)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\layan\miniconda3\envs\gdc\Lib\subprocess.py", line 550, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\layan\miniconda3\envs\gdc\Lib\subprocess.py", line 1201, in communicate
+    self.wait()
+  File "C:\Users\layan\miniconda3\envs\gdc\Lib\subprocess.py", line 1264, in wait
+    return self._wait(timeout=timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\layan\miniconda3\envs\gdc\Lib\subprocess.py", line 1590, in _wait
+    result = _winapi.WaitForSingleObject(self._handle,
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+KeyboardInterrupt

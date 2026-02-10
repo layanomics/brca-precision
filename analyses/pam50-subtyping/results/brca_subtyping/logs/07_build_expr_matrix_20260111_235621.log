@@ -1,0 +1,53 @@
+COMMAND:
+C:\Users\layan\miniconda3\envs\gdc\python.exe scripts/shared/build_expr_matrix_star_counts.py --config configs\brca_phase1.yaml
+
+[INFO] Building expression matrix from 1095 STAR-counts files
+[INFO] Download dir: data\raw\gdc\brca_phase1\rnaseq_star_counts
+[INFO] Counts column preference: ['unstranded']
+PROGRESS 1/1095 (  0.1%) | elapsed 00:00:00 | last=0019c951-16c5-48d0-85c8-58d96b12d330
+PROGRESS 25/1095 (  2.3%) | elapsed 00:00:06 | last=064215bd-9ec9-4a16-8ea2-9c6604156398
+PROGRESS 50/1095 (  4.6%) | elapsed 00:00:12 | last=0b798fe4-1c51-4c36-afc8-5bee39fd6077
+PROGRESS 75/1095 (  6.8%) | elapsed 00:00:18 | last=1051db4c-40a5-4a98-a239-d96c986aa349
+PROGRESS 100/1095 (  9.1%) | elapsed 00:00:24 | last=15d7e135-acb7-46ef-a8b1-f424e40a9e4d
+PROGRESS 125/1095 ( 11.4%) | elapsed 00:00:30 | last=1a4285b8-765b-4954-b9f2-dc8609572889
+PROGRESS 150/1095 ( 13.7%) | elapsed 00:00:36 | last=1deadf31-dc7d-4361-8041-ab0a27edebb3
+PROGRESS 175/1095 ( 16.0%) | elapsed 00:00:42 | last=25c20f52-1031-4cd1-a9ed-4b2049b01a3e
+PROGRESS 200/1095 ( 18.3%) | elapsed 00:00:48 | last=2aa3a845-cce2-4fe2-92f7-1fece9e619d5
+PROGRESS 225/1095 ( 20.5%) | elapsed 00:00:54 | last=31e1dbf5-8c97-4e4d-a488-d6737ab304c2
+PROGRESS 250/1095 ( 22.8%) | elapsed 00:01:01 | last=398fa6bf-78af-473b-8f2c-a2b3b605131f
+PROGRESS 275/1095 ( 25.1%) | elapsed 00:01:07 | last=4081fb70-afcd-4be3-a071-6df014f4fa52
+PROGRESS 300/1095 ( 27.4%) | elapsed 00:01:13 | last=466bf078-4844-457e-8f59-7b0ca28024d8
+PROGRESS 325/1095 ( 29.7%) | elapsed 00:01:19 | last=4c60d168-b545-46a8-8c37-81972a537a83
+PROGRESS 350/1095 ( 32.0%) | elapsed 00:01:25 | last=5039a492-4dc7-4191-9edd-187cb181da2d
+PROGRESS 375/1095 ( 34.2%) | elapsed 00:01:32 | last=55f42211-4119-40a3-b5e4-329e913ef910
+PROGRESS 400/1095 ( 36.5%) | elapsed 00:01:38 | last=59858555-bc6a-4286-8280-0f8341123cac
+PROGRESS 425/1095 ( 38.8%) | elapsed 00:01:44 | last=5dfadec2-3a10-40a9-99be-4984e917ba88
+PROGRESS 450/1095 ( 41.1%) | elapsed 00:01:50 | last=66dbe196-661b-4d0e-ac48-b82fc6a67cc8
+PROGRESS 475/1095 ( 43.4%) | elapsed 00:01:58 | last=6df72103-ccfb-4a53-b839-2e8c47ec2145
+PROGRESS 500/1095 ( 45.7%) | elapsed 00:02:09 | last=75a7e5eb-1db8-4858-9a9f-78abea32ccd4
+PROGRESS 525/1095 ( 47.9%) | elapsed 00:02:18 | last=793d3caa-8353-4536-83e5-711215bd51e9
+PROGRESS 550/1095 ( 50.2%) | elapsed 00:02:24 | last=7d8935d4-33df-4a11-a352-e4e1acc563a4
+PROGRESS 575/1095 ( 52.5%) | elapsed 00:02:30 | last=82fea6e8-7c6a-4575-bfcd-c164094538e6
+PROGRESS 600/1095 ( 54.8%) | elapsed 00:02:37 | last=88a16056-cc45-4fee-99e0-f7fc7e1971df
+PROGRESS 625/1095 ( 57.1%) | elapsed 00:02:43 | last=8f4d34b3-5dd0-4ff2-b017-0cfa6e5c5f6b
+PROGRESS 650/1095 ( 59.4%) | elapsed 00:02:49 | last=9568dc22-f91c-44dd-95ec-370466ee64c3
+PROGRESS 675/1095 ( 61.6%) | elapsed 00:02:55 | last=9b5bdd89-05ac-4cde-beee-66739a903939
+PROGRESS 700/1095 ( 63.9%) | elapsed 00:03:02 | last=a217c1ab-e2cb-487c-982a-8241da38272f
+PROGRESS 725/1095 ( 66.2%) | elapsed 00:03:08 | last=a835cfe4-9359-4178-9c9a-44ecb4173e47
+PROGRESS 750/1095 ( 68.5%) | elapsed 00:03:14 | last=ae2e0936-a225-491b-8361-3c20663768d9
+PROGRESS 775/1095 ( 70.8%) | elapsed 00:03:21 | last=b5fc7f21-688b-4764-b0ce-c450ad902e06
+PROGRESS 800/1095 ( 73.1%) | elapsed 00:03:27 | last=be65c37e-7aa8-466d-a1fe-102e8e25e2e9
+PROGRESS 825/1095 ( 75.3%) | elapsed 00:03:38 | last=c4afcca9-94e4-4ecd-98d1-0aab86de8685
+PROGRESS 850/1095 ( 77.6%) | elapsed 00:03:48 | last=c9920595-31f2-4977-b6bd-c0fa3ffcf461
+PROGRESS 875/1095 ( 79.9%) | elapsed 00:03:54 | last=cf53cdad-a323-475e-a84a-87b68d13e262
+PROGRESS 900/1095 ( 82.2%) | elapsed 00:04:00 | last=d5d23d6a-c141-442f-ac4f-714e46b8d9ef
+PROGRESS 925/1095 ( 84.5%) | elapsed 00:04:07 | last=da93e1a9-6863-4c98-b1fd-52d22ecbca45
+PROGRESS 950/1095 ( 86.8%) | elapsed 00:04:13 | last=e12f17ae-dc1f-4e91-93bd-b827ad276dde
+PROGRESS 975/1095 ( 89.0%) | elapsed 00:04:20 | last=e4f1f27b-24a1-4d01-af87-b2692d092d2a
+PROGRESS 1000/1095 ( 91.3%) | elapsed 00:04:26 | last=ea01e210-0d45-4c23-8644-904771672188
+PROGRESS 1025/1095 ( 93.6%) | elapsed 00:04:32 | last=ef227e3c-7a6d-4c43-945f-c1c7b410d50b
+PROGRESS 1050/1095 ( 95.9%) | elapsed 00:04:39 | last=f6392b6f-24d9-4768-8269-c7c647f8ff8c
+PROGRESS 1075/1095 ( 98.2%) | elapsed 00:04:45 | last=fbdb3ca1-c7c8-437e-a315-25e3bc623236
+PROGRESS 1095/1095 (100.0%) | elapsed 00:04:50 | last=ffeede9a-d9a9-4836-8c56-39f12a5fde0e
+[OK] Wrote counts matrix: data\processed\brca_subtyping\brca_expr_counts.csv (genes=60660 samples=1095)
+[OK] Wrote sample sheet:  data\processed\brca_subtyping\brca_expr_samples.csv (rows=1095)

@@ -1,0 +1,4 @@
+[OK] QC written: outputs\brca_subtyping\logs\wsi_pam50_labels_qc.txt
+COMMAND:
+python scripts/shared/qc_wsi_pam50_labels.py --slide_labels_csv outputs/brca_subtyping/tables/brca_wsi_pam50_slide_labels.csv --case_labels_csv outputs/brca_subtyping/tables/brca_wsi_pam50_case_labels.csv --out_qc_txt outputs/brca_subtyping/logs/wsi_pam50_labels_qc.txt
+

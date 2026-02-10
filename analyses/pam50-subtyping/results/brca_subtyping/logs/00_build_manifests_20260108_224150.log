@@ -1,0 +1,18 @@
+COMMAND:
+C:\Users\layan\miniconda3\envs\gdc\python.exe scripts/gdc/gdc_build_manifests.py --project TCGA-BRCA --data_kind rnaseq --n all --out_manifest data\metadata\brca_phase1\brca_rnaseq_manifest.tsv --out_meta data\metadata\brca_phase1\brca_rnaseq_metadata.tsv
+
+[OK] rnaseq -> wrote manifest: data\metadata\brca_phase1\brca_rnaseq_manifest.tsv
+[OK] rnaseq -> wrote metadata:  data\metadata\brca_phase1\brca_rnaseq_metadata.tsv
+[INFO] Total hits in GDC = 1111 ; wrote n = 1111
+
+--------------------------------------------------------------------------------
+
+COMMAND:
+C:\Users\layan\miniconda3\envs\gdc\python.exe scripts/gdc/gdc_build_manifests.py --project TCGA-BRCA --data_kind wsi --n all --out_manifest data\metadata\brca_phase1\brca_wsi_manifest.tsv --out_meta data\metadata\brca_phase1\brca_wsi_metadata.tsv
+
+[OK] wsi -> wrote manifest: data\metadata\brca_phase1\brca_wsi_manifest.tsv
+[OK] wsi -> wrote metadata:  data\metadata\brca_phase1\brca_wsi_metadata.tsv
+[INFO] Total hits in GDC = 3112 ; wrote n = 3112
+
+--------------------------------------------------------------------------------
+

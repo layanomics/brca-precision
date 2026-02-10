@@ -1,0 +1,25 @@
+CONFIG: configs\brca_phase1.yaml
+COUNTS_CSV: data\processed\brca_subtyping\brca_expr_counts.csv
+SAMPLES_CSV: data\processed\brca_subtyping\brca_expr_samples.csv
+
+EXISTS counts_csv: True
+EXISTS samples_csv: True
+
+COUNTS_MATRIX:
+  gene_id_col: gene_id
+  genes (rows): 60660
+  samples (cols): 1095
+
+SAMPLE_SHEET:
+  rows: 1095
+  columns: ['case_id', 'file_uuid', 'tsv_path']
+
+ALIGNMENT_CHECKS:
+  counts_csv_sample_cols: 1095
+  samples_csv_rows: 1095
+  sample_id_nonempty: 0
+  sample_id_duplicates: 0
+
+PASS dims_match (samples cols == sample rows): True
+
+ELAPSED_SEC: 0.25

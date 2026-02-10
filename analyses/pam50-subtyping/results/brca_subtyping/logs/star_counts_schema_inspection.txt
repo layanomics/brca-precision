@@ -1,0 +1,130 @@
+TIMESTAMP: 2026-01-11 23:01:47
+MANIFEST: data\metadata\brca_phase1\brca_rnaseq_manifest_one_per_case.tsv
+DOWNLOAD_DIR: data\raw\gdc\brca_phase1\rnaseq_star_counts
+INSPECT_N: 5
+
+================================================================================
+id: 41e79241-b5a4-4541-848b-e20e693e8ee3
+filename: 22c2b380-799e-4fad-ae38-46a916c592d5.rna_seq.augmented_star_gene_counts.tsv
+path: data\raw\gdc\brca_phase1\rnaseq_star_counts\41e79241-b5a4-4541-848b-e20e693e8ee3\22c2b380-799e-4fad-ae38-46a916c592d5.rna_seq.augmented_star_gene_counts.tsv
+exists: True
+peek_lines: 80
+header_line_index: 1
+header_ncols: 9
+header_cols:
+  - gene_id
+  - gene_name
+  - gene_type
+  - unstranded
+  - stranded_first
+  - stranded_second
+  - tpm_unstranded
+  - fpkm_unstranded
+  - fpkm_uq_unstranded
+summary_rows_seen:
+  N_unmapped: 1
+  N_multimapping: 1
+  N_noFeature: 1
+  N_ambiguous: 1
+
+================================================================================
+id: 0e0df72c-33c0-4e4f-939c-a4d45a6e1ea3
+filename: 36125e17-48fd-4eea-874c-ed2e2e218402.rna_seq.augmented_star_gene_counts.tsv
+path: data\raw\gdc\brca_phase1\rnaseq_star_counts\0e0df72c-33c0-4e4f-939c-a4d45a6e1ea3\36125e17-48fd-4eea-874c-ed2e2e218402.rna_seq.augmented_star_gene_counts.tsv
+exists: True
+peek_lines: 80
+header_line_index: 1
+header_ncols: 9
+header_cols:
+  - gene_id
+  - gene_name
+  - gene_type
+  - unstranded
+  - stranded_first
+  - stranded_second
+  - tpm_unstranded
+  - fpkm_unstranded
+  - fpkm_uq_unstranded
+summary_rows_seen:
+  N_unmapped: 1
+  N_multimapping: 1
+  N_noFeature: 1
+  N_ambiguous: 1
+
+================================================================================
+id: 94468afc-faea-4091-af0f-d2df8aec37da
+filename: 0781a18f-ce2a-478f-945e-49b2b8d7d941.rna_seq.augmented_star_gene_counts.tsv
+path: data\raw\gdc\brca_phase1\rnaseq_star_counts\94468afc-faea-4091-af0f-d2df8aec37da\0781a18f-ce2a-478f-945e-49b2b8d7d941.rna_seq.augmented_star_gene_counts.tsv
+exists: True
+peek_lines: 80
+header_line_index: 1
+header_ncols: 9
+header_cols:
+  - gene_id
+  - gene_name
+  - gene_type
+  - unstranded
+  - stranded_first
+  - stranded_second
+  - tpm_unstranded
+  - fpkm_unstranded
+  - fpkm_uq_unstranded
+summary_rows_seen:
+  N_unmapped: 1
+  N_multimapping: 1
+  N_noFeature: 1
+  N_ambiguous: 1
+
+================================================================================
+id: e14858ca-8bb5-4d6d-906c-5d62722d90f8
+filename: fd6f4c9b-ee43-4939-8cfa-2e447aedbcf3.rna_seq.augmented_star_gene_counts.tsv
+path: data\raw\gdc\brca_phase1\rnaseq_star_counts\e14858ca-8bb5-4d6d-906c-5d62722d90f8\fd6f4c9b-ee43-4939-8cfa-2e447aedbcf3.rna_seq.augmented_star_gene_counts.tsv
+exists: True
+peek_lines: 80
+header_line_index: 1
+header_ncols: 9
+header_cols:
+  - gene_id
+  - gene_name
+  - gene_type
+  - unstranded
+  - stranded_first
+  - stranded_second
+  - tpm_unstranded
+  - fpkm_unstranded
+  - fpkm_uq_unstranded
+summary_rows_seen:
+  N_unmapped: 1
+  N_multimapping: 1
+  N_noFeature: 1
+  N_ambiguous: 1
+
+================================================================================
+id: e6f927ef-840f-438a-9559-863cc64f71e0
+filename: 98447eef-e5af-4bfa-a215-7a1edd601c46.rna_seq.augmented_star_gene_counts.tsv
+path: data\raw\gdc\brca_phase1\rnaseq_star_counts\e6f927ef-840f-438a-9559-863cc64f71e0\98447eef-e5af-4bfa-a215-7a1edd601c46.rna_seq.augmented_star_gene_counts.tsv
+exists: True
+peek_lines: 80
+header_line_index: 1
+header_ncols: 9
+header_cols:
+  - gene_id
+  - gene_name
+  - gene_type
+  - unstranded
+  - stranded_first
+  - stranded_second
+  - tpm_unstranded
+  - fpkm_unstranded
+  - fpkm_uq_unstranded
+summary_rows_seen:
+  N_unmapped: 1
+  N_multimapping: 1
+  N_noFeature: 1
+  N_ambiguous: 1
+
+
+================================================================================
+header_ok=5
+header_fail=0
+missing=0

@@ -1,0 +1,5 @@
+[OK] Preprocess QC written: outputs\brca_subtyping\logs\preprocess_expression_qc.txt
+[INFO] RAW genes=60660 samples=1095 | PRE genes=55097 samples=1095
+COMMAND:
+python scripts/shared/qc_preprocess_expression.py --config configs\brca_phase1.yaml
+

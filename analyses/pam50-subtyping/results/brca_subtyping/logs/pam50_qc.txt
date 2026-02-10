@@ -1,0 +1,13 @@
+FILE: outputs/brca_subtyping/tables/brca_pam50_clean_calls.csv
+ROWS: 1095
+UNIQUE_SAMPLE_ID: 1095
+DUP_SAMPLE_ID: 0
+SUBTYPE_COUNTS:
+pam50_subtype
+LumA      401
+LumB      375
+Basal     193
+Her2      107
+Normal     19
+INVALID_SUBTYPES: ['Normal']
+QC_STATUS: WARN

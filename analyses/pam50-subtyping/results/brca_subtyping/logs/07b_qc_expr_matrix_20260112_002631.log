@@ -1,0 +1,4 @@
+[OK] Wrote expression matrix QC -> outputs\brca_subtyping\logs\expr_matrix_qc.txt
+COMMAND:
+python scripts/shared/qc_expr_matrix.py --config configs\brca_phase1.yaml
+
